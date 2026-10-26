@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float gravity = -20f;
+    public float jumpHeight = 2f;
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -49,5 +50,16 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        
+        // Hyppy Space-näppäimellä
+        if (controller.isGrounded &&
+            Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
+
 }
