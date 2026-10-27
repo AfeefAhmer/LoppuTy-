@@ -5,12 +5,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform playerCamera;
     public float moveSpeed = 5f;
+    public float jumpHeight = 1.5f;
     public float gravity = -20f;
-    public float jumpHeight = 2f;
 
     private CharacterController controller;
-    private Vector3 velocity;
+    private float verticalVelocity;
 
     void Start()
     {
@@ -19,19 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current == null) return;
+        if (Keyboard.current == null || playerCamera == null)
+            return;
 
         float x = 0f;
         float z = 0f;
 
-        if (Keyboard.current.wKey.isPressed ||
-            Keyboard.current.upArrowKey.isPressed)
-            z += 1f;
-
-        if (Keyboard.current.sKey.isPressed ||
-            Keyboard.current.downArrowKey.isPressed)
-            z -= 1f;
-
+        // A/D ja vasen/oikea nuoli
         if (Keyboard.current.aKey.isPressed ||
             Keyboard.current.leftArrowKey.isPressed)
             x -= 1f;
@@ -40,26 +35,43 @@ public class PlayerMovement : MonoBehaviour
             Keyboard.current.rightArrowKey.isPressed)
             x += 1f;
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        move = Vector3.ClampMagnitude(move, 1f);
+        // W/S ja ylös/alas nuoli
+        if (Keyboard.current.wKey.isPressed ||
+            Keyboard.current.upArrowKey.isPressed)
+            z += 1f;
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        if (Keyboard.current.sKey.isPressed ||
+            Keyboard.current.downArrowKey.isPressed)
+            z -= 1f;
 
-        if (controller.isGrounded && velocity.y < 0f)
-            velocity.y = -2f;
+        // Liikkuminen kameran vaakasuuntaisen suunnan mukaan
+        Vector3 forward = playerCamera.forward;
+        Vector3 right = playerCamera.right;
 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-        
-        // Hyppy Space-näppäimellä
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 move = (forward * z + right * x).normalized;
+
+        // Painovoima
+        if (controller.isGrounded && verticalVelocity < 0f)
+            verticalVelocity = -2f;
+
+        verticalVelocity += gravity * Time.deltaTime;
+
+        // Hyppy välilyönnillä
         if (controller.isGrounded &&
             Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        Vector3 velocity = move * moveSpeed;
+        velocity.y = verticalVelocity;
+
         controller.Move(velocity * Time.deltaTime);
     }
-
 }
