@@ -1,52 +1,57 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour
 {
-    [Header("Pickup Settings")]
     public KeyCode pickupKey = KeyCode.E;
     public float pickupRadius = 2f;
-    public string itemTag = "Item";
 
-    [Header("Inventory")]
-    public List<string> inventory = new List<string>();
+    PlayerHand hand;
+
+    void Awake()
+    {
+        hand = GetComponent<PlayerHand>();
+        if (hand == null) hand = GetComponentInParent<PlayerHand>();
+        if (hand == null) hand = GetComponentInChildren<PlayerHand>();
+        if (hand == null)
+            Debug.LogError("PlayerPickup: no PlayerHand found. Add PlayerHand to the player.", this);
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(pickupKey))
-        {
-            TryPickup();
-        }
+        if (Input.GetKeyDown(pickupKey)) TryPickup();
     }
 
     void TryPickup()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, pickupRadius);
+        if (hand == null) return;
 
-        GameObject closest = null;
+        Collider[] hits = Physics.OverlapSphere(transform.position, pickupRadius, ~0, QueryTriggerInteraction.Collide);
+
+        Item closest = null;
         float closestDist = Mathf.Infinity;
 
         foreach (Collider hit in hits)
         {
-            if (!hit.CompareTag(itemTag)) continue;
+            Item item = hit.GetComponentInParent<Item>();
+            if (item == null) continue;
 
-            float dist = Vector3.Distance(transform.position, hit.transform.position);
+            float dist = Vector3.Distance(transform.position, item.transform.position);
             if (dist < closestDist)
             {
                 closestDist = dist;
-                closest = hit.gameObject;
+                closest = item;
             }
         }
 
-        if (closest != null)
+        if (closest == null)
         {
-            inventory.Add(closest.name);
-            Debug.Log("Picked up: " + closest.name);
-            Destroy(closest);
+            Debug.Log("PlayerPickup: E pressed, " + hits.Length + " colliders nearby but none have an Item script.");
+            return;
         }
+
+        hand.AddItem(closest);
     }
 
-    // Shows the pickup range in the Scene view
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
