@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public Transform playerCamera;
     public float moveSpeed = 5f;
-    public float jumpHeight = 1.5f;
-    public float gravity = -20f;
+    public float jumpHeight = 2f;
+    public float gravity = -10f;
 
     private CharacterController controller;
     private float verticalVelocity;
