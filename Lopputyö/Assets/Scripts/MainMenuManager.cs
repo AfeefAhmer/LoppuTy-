@@ -8,7 +8,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level 1 Talo");
     }
 
     public void OpenOptions()
