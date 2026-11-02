@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    
     public Transform playerCamera;
     public float moveSpeed = 5f;
     public float jumpHeight = 2f;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //Fps riippuva
         if (Keyboard.current == null || playerCamera == null)
             return;
 
