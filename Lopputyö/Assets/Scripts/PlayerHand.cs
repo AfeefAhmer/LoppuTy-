@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Put this on the player. It holds the inventory and the item in hand.
 public class PlayerHand : MonoBehaviour
 {
     [Header("Setup")]
-    public Transform handSlot;            
+    public Transform handSlot;            // empty child of your camera/arm where items are held
     public int maxItems = 6;
 
     [Header("Keys")]
@@ -16,6 +17,7 @@ public class PlayerHand : MonoBehaviour
 
     void Update()
     {
+        // 1-9 equips that inventory slot (press again to put away)
         for (int i = 0; i < 9; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i)) ToggleEquip(i);
@@ -28,7 +30,21 @@ public class PlayerHand : MonoBehaviour
 
         if (Input.GetKeyDown(dropKey)) DropCurrent();
 
+        // Debug: tells us what happens when you click
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (CurrentItem == null)
+                Debug.Log("PlayerHand: clicked but nothing is in hand. Inventory count: " + inventory.Count);
+            else
+                Debug.Log("PlayerHand: clicked, holding " + CurrentItem.name + " (script type: " + CurrentItem.GetType().Name + ")");
+        }
 
+        // Use the held item
+        if (CurrentItem != null)
+        {
+            if (Input.GetMouseButtonDown(0))
+                CurrentItem.Use();
+        }
     }
 
     public bool AddItem(Item item)
@@ -38,6 +54,7 @@ public class PlayerHand : MonoBehaviour
         inventory.Add(item);
         item.OnPickedUp();
 
+        // Auto-equip if hands are empty
         if (CurrentItem == null) Equip(inventory.Count - 1);
         return true;
     }
