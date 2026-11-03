@@ -2062,9 +2062,10 @@ MonoBehaviour:
   damage: 35
   reach: 2
   radius: 0.8
-  swingCooldown: 0.6
-  swingDuration: 0.3
-  swingRotation: {x: 70, y: 0, z: -45}
+  comboWindow: 0.5
+  comboCooldown: 0.6
+  hitPoint: 0.5
+  combo: []
 --- !u!4 &2144194513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8011767501434895950, guid: 42b45c821e9dc6d419a1e688bf5cfcc1, type: 3}
@@ -2167,14 +2168,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bat
   itemName: bat
-  heldPosition: {x: 0, y: 0, z: 0}
+  heldPosition: {x: 0, y: 0, z: 0.5}
   heldRotation: {x: -30, y: 0, z: 0}
   damage: 35
   reach: 2
   radius: 0.8
-  swingCooldown: 0.6
-  swingDuration: 0.5
-  swingRotation: {x: 20, y: -60, z: 0}
+  comboWindow: 0.5
+  comboCooldown: 0.6
+  hitPoint: 0.5
+  combo: []
 --- !u!65 &962144630227878377
 BoxCollider:
   m_ObjectHideFlags: 0
