@@ -9,46 +9,72 @@ public class FirstPersonCamera : MonoBehaviour
 
     private float verticalRotation = 0f;
 
+    public static bool keypadOpen = false;
+
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        keypadOpen = false;
+        UpdateCursor();
 
-        // Piilota pelaajan capsule kamerasta
-        Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
-
-        foreach (Renderer rend in renderers)
+        if (player != null)
         {
-            rend.enabled = false;
+            Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
+
+            foreach (Renderer rend in renderers)
+            {
+                rend.enabled = false;
+            }
         }
     }
 
     void Update()
     {
+        if (Keyboard.current != null &&
+            Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (!keypadOpen)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
+            return;
+        }
+
+        if (Cursor.lockState != CursorLockMode.Locked)
+            return;
+
         if (Mouse.current == null || player == null)
             return;
 
-        float mouseX = Mouse.current.delta.x.ReadValue()
-                       * mouseSensitivity;
+        float mouseX = Mouse.current.delta.x.ReadValue() * mouseSensitivity;
+        float mouseY = Mouse.current.delta.y.ReadValue() * mouseSensitivity;
 
-        float mouseY = Mouse.current.delta.y.ReadValue()
-                       * mouseSensitivity;
-
-        // Hiiri ylös = katse ylös
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
 
-        // Käännä kameraa pystysuunnassa
         transform.localRotation =
             Quaternion.Euler(verticalRotation, 0f, 0f);
 
-        // Käännä pelaajaa vaakasuunnassa
         player.Rotate(Vector3.up * mouseX);
     }
 
-    void OnDisable()
+    public static void UpdateCursor()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if (keypadOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }

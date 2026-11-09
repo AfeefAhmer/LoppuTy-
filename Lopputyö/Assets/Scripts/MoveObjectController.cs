@@ -100,4 +100,15 @@ public class MoveObjectController : MonoBehaviour
             }
         }
     }
+    public void OpenDoor()
+    {
+        if (anim == null)
+            return;
+
+        string animationName = animBoolName +
+            GetComponent<MoveableObject>().objectNumber;
+
+        anim.enabled = true;
+        anim.SetBool(animationName, true);
+    }
 }

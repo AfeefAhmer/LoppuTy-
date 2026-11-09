@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    
     public Transform playerCamera;
     public float moveSpeed = 5f;
     public float jumpHeight = 2f;
@@ -21,14 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Fps riippuva
         if (Keyboard.current == null || playerCamera == null)
             return;
 
         float x = 0f;
         float z = 0f;
 
-        // A/D ja vasen/oikea nuoli
         if (Keyboard.current.aKey.isPressed ||
             Keyboard.current.leftArrowKey.isPressed)
             x -= 1f;
@@ -37,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
             Keyboard.current.rightArrowKey.isPressed)
             x += 1f;
 
-        // W/S ja ylös/alas nuoli
         if (Keyboard.current.wKey.isPressed ||
             Keyboard.current.upArrowKey.isPressed)
             z += 1f;
@@ -46,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
             Keyboard.current.downArrowKey.isPressed)
             z -= 1f;
 
-        // Liikkuminen kameran vaakasuuntaisen suunnan mukaan
         Vector3 forward = playerCamera.forward;
         Vector3 right = playerCamera.right;
 
@@ -58,13 +53,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = (forward * z + right * x).normalized;
 
-        // Painovoima
         if (controller.isGrounded && verticalVelocity < 0f)
             verticalVelocity = -2f;
 
         verticalVelocity += gravity * Time.deltaTime;
 
-        // Hyppy välilyönnillä
         if (controller.isGrounded &&
             Keyboard.current.spaceKey.wasPressedThisFrame)
         {
