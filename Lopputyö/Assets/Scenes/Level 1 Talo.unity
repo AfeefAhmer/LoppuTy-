@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
   requiredKeyID: RoomKey
-  interactionDistance: 3
+  interactionDistance: 2
   interactKey: 114
   animBoolName: isOpen_Obj_
 --- !u!1001 &168057184
@@ -192,6 +192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1885767004309051675, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2125268264183564564, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_Name
       value: Key
@@ -199,6 +203,10 @@ PrefabInstance:
     - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: keyID
       value: ToiletKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: pickupDistance
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -295,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
   requiredKeyID: ToiletKey
-  interactionDistance: 3
+  interactionDistance: 2
   interactKey: 114
   animBoolName: isOpen_Obj_
 --- !u!1 &609167962 stripped
@@ -362,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
   requiredKeyID: ClosetKey
-  interactionDistance: 3
+  interactionDistance: 2
   interactKey: 114
   animBoolName: isOpen_Obj_
 --- !u!1001 &735419228
@@ -419,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885767004309051675, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2125268264183564564, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_Name
@@ -428,6 +436,10 @@ PrefabInstance:
     - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: keyID
       value: ClosetKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: pickupDistance
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -875,9 +887,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1885767004309051675, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2125268264183564564, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_Name
       value: Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: pickupDistance
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1699,7 +1719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
   requiredKeyID: BrownKey
-  interactionDistance: 3
+  interactionDistance: 2
   interactKey: 114
   animBoolName: isOpen_Obj_
 --- !u!1001 &1886500394
@@ -1803,7 +1823,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 20893d5872b396849be6d600f7d2d333, type: 2}
     - target: {fileID: 1600370602544386990, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.064
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1600370602544386990, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1811,7 +1831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1600370602544386990, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1600370602544386990, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1841,6 +1861,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1885767004309051675, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2125268264183564564, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: m_Name
       value: Key
@@ -1848,6 +1872,10 @@ PrefabInstance:
     - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
       propertyPath: keyID
       value: BrownKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342009646833884487, guid: 63ea0a10e7f4b0546a6a5310ab7c5b45, type: 3}
+      propertyPath: pickupDistance
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

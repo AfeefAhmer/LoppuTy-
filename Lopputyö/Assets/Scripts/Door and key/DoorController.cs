@@ -7,7 +7,7 @@ public class DoorController : MonoBehaviour
     public string requiredKeyID = "HouseKey";
 
     [Header("Interaction")]
-    public float interactionDistance = 3f;
+    public float interactionDistance = 0.1f;
     public KeyCode interactKey = KeyCode.R;
 
     [Header("Animation")]

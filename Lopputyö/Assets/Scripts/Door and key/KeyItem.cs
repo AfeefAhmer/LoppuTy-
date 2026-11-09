@@ -5,7 +5,7 @@ public class KeyItem : Item
 {
     public string keyID = "HouseKey";
 
-    public float pickupDistance = 0.01f;
+    public float pickupDistance = 0f;
 
     public bool boxOpened = false;
 
