@@ -28,9 +28,13 @@ public class FirstPersonCamera : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         // Älä liikuta kameraa, kun keypad on käytössä
         if (Cursor.lockState != CursorLockMode.Locked)
             return;
+=======
+        if (Time.timeScale == 0f) return;
+>>>>>>> Stashed changes
 
         if (Mouse.current == null || player == null)
             return;
