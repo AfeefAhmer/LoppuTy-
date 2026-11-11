@@ -7,6 +7,8 @@ public class KeypadVisibility : MonoBehaviour
     public float showDistance = 1f;
 
     private Transform player;
+    private Keypad keypad;
+
     private bool unlocked = false;
 
     void Start()
@@ -17,7 +19,11 @@ public class KeypadVisibility : MonoBehaviour
         if (playerObject != null)
             player = playerObject.transform;
 
+        keypad = keypadPanel.GetComponentInChildren<Keypad>(true);
+
         keypadPanel.SetActive(false);
+
+        SetCursor(false);
     }
 
     void Update()
@@ -25,23 +31,57 @@ public class KeypadVisibility : MonoBehaviour
         if (player == null || keypadPanel == null || unlocked)
             return;
 
+        Vector3 playerPosition = player.position;
+        Vector3 doorPosition = transform.position;
+
+        // Lasketaan vaakasuora etäisyys
+        playerPosition.y = 0f;
+        doorPosition.y = 0f;
+
         float distance = Vector3.Distance(
-            player.position,
-            transform.position
+            playerPosition,
+            doorPosition
         );
 
-        if (distance <= showDistance && !keypadPanel.activeSelf)
-        {
-            keypadPanel.SetActive(true);
+        bool nearDoor = distance <= showDistance;
 
-            FirstPersonCamera.keypadOpen = true;
-            FirstPersonCamera.UpdateCursor();
+        if (nearDoor)
+        {
+            if (!keypadPanel.activeSelf)
+            {
+                keypadPanel.SetActive(true);
+                SetCursor(true);
+            }
+        }
+        else
+        {
+            if (keypadPanel.activeSelf)
+            {
+                keypadPanel.SetActive(false);
+
+                if (keypad != null)
+                    keypad.ResetCode();
+
+                SetCursor(false);
+            }
         }
     }
 
     public void Unlock()
     {
         unlocked = true;
+
         keypadPanel.SetActive(false);
+
+        SetCursor(false);
+    }
+
+    void SetCursor(bool visible)
+    {
+        Cursor.visible = visible;
+
+        Cursor.lockState = visible
+            ? CursorLockMode.None
+            : CursorLockMode.Locked;
     }
 }

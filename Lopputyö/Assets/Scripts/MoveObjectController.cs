@@ -105,8 +105,14 @@ public class MoveObjectController : MonoBehaviour
         if (anim == null)
             return;
 
-        string animationName = animBoolName +
-            GetComponent<MoveableObject>().objectNumber;
+        MoveableObject moveableObject =
+            GetComponent<MoveableObject>();
+
+        if (moveableObject == null)
+            return;
+
+        string animationName =
+            animBoolName + moveableObject.objectNumber;
 
         anim.enabled = true;
         anim.SetBool(animationName, true);

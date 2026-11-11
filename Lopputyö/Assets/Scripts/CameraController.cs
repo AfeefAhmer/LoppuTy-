@@ -9,16 +9,15 @@ public class FirstPersonCamera : MonoBehaviour
 
     private float verticalRotation = 0f;
 
-    public static bool keypadOpen = false;
-
     void Start()
     {
-        keypadOpen = false;
-        UpdateCursor();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (player != null)
         {
-            Renderer[] renderers = player.GetComponentsInChildren<Renderer>();
+            Renderer[] renderers =
+                player.GetComponentsInChildren<Renderer>();
 
             foreach (Renderer rend in renderers)
             {
@@ -29,52 +28,26 @@ public class FirstPersonCamera : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null &&
-            Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (!keypadOpen)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-
-            return;
-        }
-
+        // Älä liikuta kameraa, kun keypad on käytössä
         if (Cursor.lockState != CursorLockMode.Locked)
             return;
 
         if (Mouse.current == null || player == null)
             return;
 
-        float mouseX = Mouse.current.delta.x.ReadValue() * mouseSensitivity;
-        float mouseY = Mouse.current.delta.y.ReadValue() * mouseSensitivity;
+        float mouseX = Mouse.current.delta.x.ReadValue()
+                       * mouseSensitivity;
+
+        float mouseY = Mouse.current.delta.y.ReadValue()
+                       * mouseSensitivity;
 
         verticalRotation -= mouseY;
-        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+        verticalRotation = Mathf.Clamp(
+            verticalRotation, -90f, 90f);
 
         transform.localRotation =
             Quaternion.Euler(verticalRotation, 0f, 0f);
 
         player.Rotate(Vector3.up * mouseX);
-    }
-
-    public static void UpdateCursor()
-    {
-        if (keypadOpen)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
     }
 }

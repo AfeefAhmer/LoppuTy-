@@ -61,7 +61,8 @@ public class PlayerMovement : MonoBehaviour
         if (controller.isGrounded &&
             Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            verticalVelocity =
+                Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
         Vector3 velocity = move * moveSpeed;
