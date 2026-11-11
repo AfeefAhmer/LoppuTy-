@@ -45,7 +45,7 @@ public class Keypad : MonoBehaviour
     {
         Ans.text = "INCORRECT";
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         Ans.text = "";
     }
