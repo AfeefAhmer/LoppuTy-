@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public struct SwingPose
 {
-    public Vector3 position;   // offset from the resting hold position (in hand space)
-    public Vector3 rotation;   // extra rotation in hand space: x = pitch, y = yaw, z = roll
+    public Vector3 position;   
+    public Vector3 rotation;   
 }
 
 [System.Serializable]
@@ -26,26 +26,25 @@ public class Bat : Item
 {
     [Header("Damage")]
     public float damage = 35f;
-    public float reach = 2f;          // how far in front of the camera the hit lands
-    public float radius = 0.8f;       // size of the hit area
+    public float reach = 2f;          
+    public float radius = 0.8f;       
 
     [Header("Combo")]
-    public float comboWindow = 0.5f;    // seconds after a swing to keep the combo going
-    public float comboCooldown = 0.6f;  // rest after the 3rd swing before the combo can restart
-    [Range(0f, 1f)] public float hitPoint = 0.5f;  // how far through a swing the damage lands
+    public float comboWindow = 0.5f;    
+    public float comboCooldown = 0.6f;  
+    [Range(0f, 1f)] public float hitPoint = 0.5f;  
 
     public SwingVariation[] combo;
 
     int comboIndex;
     bool swinging;
-    bool queued;            // a click that came in mid-swing
+    bool queued;           
     float nextSwingTime;
     float lastSwingEnd = -999f;
 
     Vector3 basePos;
     Quaternion baseRot;
 
-    // Fills in the Inspector when you add or Reset the component
     void Reset()
     {
         combo = DefaultCombo();
@@ -61,7 +60,6 @@ public class Bat : Item
     {
         return new SwingVariation[]
         {
-            // 1. Diagonal slash, right to left
             new SwingVariation
             {
                 name = "Diagonal slash",
@@ -70,7 +68,6 @@ public class Bat : Item
                 windupTime = 0.15f, swingTime = 0.12f, holdTime = 0.03f, recoverTime = 0.2f,
                 damageMultiplier = 1f
             },
-            // 2. Backhand, left to right (faster)
             new SwingVariation
             {
                 name = "Backhand",
@@ -79,7 +76,6 @@ public class Bat : Item
                 windupTime = 0.12f, swingTime = 0.1f, holdTime = 0.03f, recoverTime = 0.2f,
                 damageMultiplier = 1.1f
             },
-            // 3. Overhead smash (slow and heavy)
             new SwingVariation
             {
                 name = "Overhead smash",
@@ -94,16 +90,13 @@ public class Bat : Item
     public override void OnEquipped(Transform hand)
     {
         base.OnEquipped(hand);
-        // reset everything in case it was put away mid-swing
         swinging = false;
         queued = false;
         comboIndex = 0;
     }
 
-    // Called by PlayerHand on left click
     public override void Use()
     {
-        // Clicked mid-swing: remember it and chain into the next swing
         if (swinging)
         {
             queued = true;
@@ -112,7 +105,6 @@ public class Bat : Item
 
         if (Time.time < nextSwingTime) return;
 
-        // Too slow? Combo starts over
         if (Time.time - lastSwingEnd > comboWindow) comboIndex = 0;
 
         StartCoroutine(Swing());
@@ -128,7 +120,6 @@ public class Bat : Item
         baseRot = Quaternion.Euler(heldRotation);
         SwingPose rest = new SwingPose();
 
-        // 1. Wind up: starts fast, slows at the top
         for (float t = 0f; t < v.windupTime; t += Time.deltaTime)
         {
             float k = t / v.windupTime;
@@ -137,7 +128,6 @@ public class Bat : Item
         }
         ApplyPose(rest, v.windup, 1f);
 
-        // 2. Swing: speeds up through the hit
         bool hasHit = false;
         for (float t = 0f; t < v.swingTime; t += Time.deltaTime)
         {
@@ -154,10 +144,8 @@ public class Bat : Item
         ApplyPose(v.windup, v.followThrough, 1f);
         if (!hasHit) DealDamage(damage * v.damageMultiplier);
 
-        // 3. Brief pause for impact
         yield return new WaitForSeconds(v.holdTime);
 
-        // 4. Recover: smooth return to rest
         for (float t = 0f; t < v.recoverTime; t += Time.deltaTime)
         {
             float k = Mathf.SmoothStep(0f, 1f, t / v.recoverTime);
@@ -166,21 +154,18 @@ public class Bat : Item
         }
         ApplyPose(rest, rest, 1f);
 
-        // Swing finished: move on in the combo
         swinging = false;
         lastSwingEnd = Time.time;
         comboIndex++;
 
         if (comboIndex >= combo.Length)
         {
-            // Finisher done: reset and rest a moment
             comboIndex = 0;
             nextSwingTime = Time.time + comboCooldown;
             queued = false;
         }
         else if (queued)
         {
-            // They kept clicking: go straight into the next swing
             StartCoroutine(Swing());
         }
     }
@@ -199,7 +184,6 @@ public class Bat : Item
         Camera cam = Camera.main;
         Vector3 center = cam.transform.position + cam.transform.forward * reach;
 
-        // One hit per target, even if it has several colliders
         var alreadyHit = new HashSet<IDamageable>();
 
         foreach (Collider c in Physics.OverlapSphere(center, radius))
@@ -211,7 +195,6 @@ public class Bat : Item
         }
     }
 
-    // Shows the hit area in the Scene view while the bat is selected
     void OnDrawGizmosSelected()
     {
         if (Camera.main == null) return;
