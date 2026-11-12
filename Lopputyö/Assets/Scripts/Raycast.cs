@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using TMPro;
 
@@ -30,7 +29,6 @@ public class Raycast : MonoBehaviour
             return;
         }
 
-        // Don't raycast while note is open
         if (currentNote != null && currentNote.IsOpen)
         {
             if (crosshair != null)
@@ -59,18 +57,25 @@ public class Raycast : MonoBehaviour
             }
         }
 
-        if (currentNote != null)
+        if (crosshair != null)
         {
-            if (crosshair != null)
+            if (currentNote != null)
+            {
+                // T = WHITE
                 crosshair.text = "T";
+                crosshair.color = new Color(1f, 1f, 1f, 1f);
+                crosshair.faceColor = Color.white;
 
-            if (Input.GetKeyDown(InteractKey))
-                currentNote.ShowNote();
-        }
-        else
-        {
-            if (crosshair != null)
+                if (Input.GetKeyDown(InteractKey))
+                    currentNote.ShowNote();
+            }
+            else
+            {
+                // + = BLACK
                 crosshair.text = "+";
+                crosshair.color = new Color(0f, 0f, 0f, 1f);
+                crosshair.faceColor = Color.black;
+            }
         }
     }
 }
