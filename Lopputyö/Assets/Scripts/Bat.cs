@@ -195,10 +195,5 @@ public class Bat : Item
         }
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (Camera.main == null) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Camera.main.transform.position + Camera.main.transform.forward * reach, radius);
-    }
+
 }

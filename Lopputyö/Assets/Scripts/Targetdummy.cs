@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Put this on a cube/capsule with a Collider to test hitting things.
 public class TargetDummy : MonoBehaviour, IDamageable
 {
     public float health = 100f;
