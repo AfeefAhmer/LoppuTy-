@@ -880,6 +880,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7555756580201206296, guid: 82430f94fd1381c43878fce981a5aa43, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1963868179}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1039,6 +1043,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 612224881124759541, guid: f3978c44f7fb36246b698fdea7f77528, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1963868179}
     - target: {fileID: 6899769094566875521, guid: f3978c44f7fb36246b698fdea7f77528, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.002103
@@ -1797,6 +1805,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   MaxHealth: 100
   CurrentHealth: 100
+--- !u!4 &1963868179 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9103113547646319468, guid: 42b45c821e9dc6d419a1e688bf5cfcc1, type: 3}
+  m_PrefabInstance: {fileID: 1304285693}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1995996774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1862,6 +1875,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2294462364906034849, guid: af9f138ca1214ae41beb955d1406704e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1963868179}
     - target: {fileID: 2547632407910942000, guid: af9f138ca1214ae41beb955d1406704e, type: 3}
       propertyPath: m_Name
       value: Creep1
