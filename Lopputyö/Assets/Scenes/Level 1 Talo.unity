@@ -3020,7 +3020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Keypad
   Ans: {fileID: 209400168}
   door: {fileID: 1841802750}
-  visibility: {fileID: 0}
+  visibility: {fileID: 1660452900}
 --- !u!114 &739258406
 MonoBehaviour:
   m_ObjectHideFlags: 0
