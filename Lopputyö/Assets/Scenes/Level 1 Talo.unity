@@ -6935,7 +6935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1073221301164619179, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0037122
+      value: 1.702
       objectReference: {fileID: 0}
     - target: {fileID: 1073221301164619179, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6973,10 +6973,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistolero
       objectReference: {fileID: 0}
+    - target: {fileID: 9199085242997271181, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199085242997271181, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199085242997271181, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00000005713999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6685466414447675624, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7547414050765094377}
+    - targetCorrespondingSourceObject: {fileID: 6685466414447675624, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7547414050765094378}
   m_SourcePrefab: {fileID: 100100000, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
 --- !u!23 &5090333564087399321
 MeshRenderer:
@@ -7027,6 +7045,67 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7547414050765094376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6685466414447675624, guid: 4f9980533bbbc5641a974986127e19c6, type: 3}
+  m_PrefabInstance: {fileID: 3664597784280987247}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7547414050765094377
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547414050765094376}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba19275cd2ede994cae9fa8587b06709, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7547414050765094378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547414050765094376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec5c3fa387b9dac4884f44170ff55ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gun
+  itemName: pistol
+  heldPosition: {x: 0, y: 0.05, z: 0}
+  heldRotation: {x: 0, y: 90, z: 0}
+  damage: 20
+  range: 100
+  fireRate: 0.15
+  automatic: 0
+  magazineSize: 12
+  reserveAmmo: 48
+  infiniteReserve: 0
+  autoReloadWhenEmpty: 1
+  reloadTime: 0
+  animator: {fileID: 7547414050765094377}
+  useTriggers: 1
+  shootAnim: shoot
+  reloadAnim: reload
+  muzzleFlash: {fileID: 0}
+  audioSource: {fileID: 0}
+  shootSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  emptySound: {fileID: 0}
+  debugHits: 1
 --- !u!4 &8445449999007768836
 Transform:
   m_ObjectHideFlags: 0
